@@ -1,0 +1,73 @@
+<head>
+    <meta charset="utf-8">
+    <script>
+
+        const notes = [
+            '<note applicature="left">♪</note>',
+            '<note applicature="kick">♪</note>',
+            '<pause>.</pause>'
+        ];
+
+        function random(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function note() {
+            let index = random(0, notes.length - 1);
+            return notes[index];
+        }
+
+        function bar() {
+            return ''.concat(note(), '<pause>.</pause>', note(), '&nbsp;');
+        }
+
+        function measure() {
+            let measure = '';
+            for (let i = 0; i < 4; i++) {
+                measure = measure.concat(bar());
+            }
+
+            return measure.substring(0, measure.length - 1);
+        }
+
+        function generate() {
+            let element = document.getElementById('main');
+            element.innerHTML = measure();
+        }
+    </script>
+    <title>Swing Lesson Generator</title>
+    <style>
+        div[id="main"] {
+            width: 100%;
+            height: 100%;
+            font-family: 'Courier New', serif;
+            font-size: 10vw;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        pause {
+            color: gray;
+        }
+
+        note {
+            color: black;
+        }
+
+        [applicature="left"] {
+            color: chocolate;
+        }
+
+        [applicature="kick"] {
+            color: saddlebrown;
+        }
+
+        body {
+            background-color: black;
+        }
+    </style>
+</head>
+<body onload="generate();" onclick="generate();">
+
+<div id="main"></div>
+</body>
